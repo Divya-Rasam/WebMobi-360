@@ -1,0 +1,5 @@
+com\webmobi\demo\response\ApiResponse.class
+com\webmobi\demo\controller\AuthController.class
+com\webmobi\demo\DemoApplication.class
+com\webmobi\demo\repository\UserRepository.class
+com\webmobi\demo\model\User.class
