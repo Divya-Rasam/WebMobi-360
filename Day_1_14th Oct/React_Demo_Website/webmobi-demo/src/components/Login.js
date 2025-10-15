@@ -13,10 +13,14 @@ const Login = ({ onLoginSuccess }) => {
     setError('');
     
     try {
+      console.log('Sending login request:', { email, password });
+      
       const response = await axios.post('http://localhost:8080/api/auth/login', {
         email,
         password
       });
+      
+      console.log('Login response:', response.data);
       
       if (response.data.success) {
         onLoginSuccess(response.data.data);
@@ -24,8 +28,22 @@ const Login = ({ onLoginSuccess }) => {
         setError(response.data.message || 'Login failed');
       }
     } catch (err) {
-      setError('An error occurred during login');
-      console.error(err);
+      console.error('Login error:', err);
+      
+      if (err.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.error('Error response data:', err.response.data);
+        setError(err.response.data.message || 'Server error');
+      } else if (err.request) {
+        // The request was made but no response was received
+        console.error('No response received:', err.request);
+        setError('No response from server');
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.error('Error setting up request:', err.message);
+        setError('Error: ' + err.message);
+      }
     } finally {
       setLoading(false);
     }
