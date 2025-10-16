@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import Login from './components/Login';
 import Signup from './components/Signup';
+import Admin from './components/Admin';
 import './App.css';
 
 function App() {
   const [showLogin, setShowLogin] = useState(true);
+  const [showAdmin, setShowAdmin] = useState(false);
   const [user, setUser] = useState(null);
   const [message, setMessage] = useState('');
 
@@ -23,6 +25,15 @@ function App() {
     setMessage('');
   };
 
+  const handleShowAdmin = () => {
+    setShowAdmin(true);
+  };
+
+  const handleBackToForms = () => {
+    setShowAdmin(false);
+    handleReset();
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -32,7 +43,7 @@ function App() {
             className={showLogin ? 'active' : ''} 
             onClick={() => {
               setShowLogin(true);
-              handleReset();
+              handleBackToForms();
             }}
           >
             Login
@@ -41,20 +52,27 @@ function App() {
             className={!showLogin ? 'active' : ''} 
             onClick={() => {
               setShowLogin(false);
-              handleReset();
+              handleBackToForms();
             }}
           >
             Signup
-          </button>
+         </button>
+
+
+
+
+
         </nav>
       </header>
       <main>
-        {message ? (
+        {showAdmin ? (
+          <Admin />
+        ) : message ? (
           <div className="success-container">
             <div className="success-message">
               <h2>Success!</h2>
               <p>{message}</p>
-              <button onClick={handleReset} className="reset-button">
+              <button onClick={handleBackToForms} className="reset-button">
                 Back to Forms
               </button>
             </div>
@@ -73,3 +91,12 @@ function App() {
 }
 
 export default App;
+
+
+
+
+          // <button 
+          //   onClick={handleShowAdmin}
+          // >
+          //   Admin
+          // </button>                                     add this in between

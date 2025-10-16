@@ -1,19 +1,15 @@
 package com.webmobi.demo.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.webmobi.demo.model.User;
 import com.webmobi.demo.repository.UserRepository;
 import com.webmobi.demo.response.ApiResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -70,6 +66,18 @@ public class AuthController {
             return ResponseEntity.ok(new ApiResponse(true, "Login successful", userData));
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(new ApiResponse(false, "Error during login: " + e.getMessage()));
+        }
+    }
+
+    @GetMapping("/users")
+    public ResponseEntity<List<User>> getAllUsers() {
+        try {
+            List<User> users = userRepository.findAll();
+            // Don't send passwords in the response
+            users.forEach(user -> user.setPassword(null));
+            return ResponseEntity.ok(users);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
         }
     }
 }

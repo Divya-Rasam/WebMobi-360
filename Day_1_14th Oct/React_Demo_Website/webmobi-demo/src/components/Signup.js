@@ -71,7 +71,7 @@ const Signup = ({ onSignupSuccess }) => {
             value={name} 
             onChange={(e) => setName(e.target.value)} 
             required 
-            placeholder="John Doe"
+            placeholder="Enter name here"
           />
         </div>
         <div className="form-group">
@@ -82,7 +82,7 @@ const Signup = ({ onSignupSuccess }) => {
             value={email} 
             onChange={(e) => setEmail(e.target.value)} 
             required 
-            placeholder="your@email.com"
+            placeholder="Enter email here"
           />
         </div>
         <div className="form-group">

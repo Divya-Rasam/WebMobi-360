@@ -62,7 +62,7 @@ const Login = ({ onLoginSuccess }) => {
             value={email} 
             onChange={(e) => setEmail(e.target.value)} 
             required 
-            placeholder="your@email.com"
+            placeholder="Enter email here"
           />
         </div>
         <div className="form-group">
